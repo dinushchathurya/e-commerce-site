@@ -6,7 +6,7 @@
  --mainYellow:#ffa400;
 }
 body{
-  font-family:"Rubik Mono One", sans-serif !important;
+  font-family:"Anton", sans-serif !important;
   background:var(--mainWhite) !important;
   color:var(--mainDark) !important;
 }
