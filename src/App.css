@@ -11,7 +11,7 @@ body{
   color:var(--mainDark) !important;
 }
 .text-title{
-  font-family: 'Permanent Marker', cursive;
+  font-family: 'Anton', cursive;
   letter-spacing:0.3rem;
   text-transform: uppercase; 
 }
