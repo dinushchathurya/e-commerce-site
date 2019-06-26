@@ -75,7 +75,9 @@ class ProductProvider extends Component {
         console.log("this is remove");
     };
     clearCart = ()=>{
-        console.log("cart was cleared");
+        this.setState(()=>{
+            return {cart:[]}
+        })
     };
     addTotals = ()=>{
         let subTotal = 0;
