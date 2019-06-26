@@ -8,7 +8,7 @@ class ProductProvider extends Component {
     state ={
         products:[],
         detailProduct:detailProduct,
-        cart:storeProducts,
+        cart:[],
         modalOpen:false,
         modalProduct:detailProduct,
         cartSubTotal:0,
@@ -18,7 +18,7 @@ class ProductProvider extends Component {
     componentDidMount(){
         this.setProducts();
     }
-    setProducts=()=>{
+    setProducts = () => {
         let tempProducts = [];
         storeProducts.forEach(item =>{
          const singleItem = {...item};
@@ -29,7 +29,7 @@ class ProductProvider extends Component {
             return {products:tempProducts};
         }) ; 
     };
-    getItem = (id) =>{
+    getItem = id =>{
         const product = this.state.products.find(item =>item.id === id);
         return product;
     };
@@ -49,19 +49,21 @@ class ProductProvider extends Component {
         product.total=price;
         this.setState(()=>{
             return {products:tempProducts,cart:[...this.state.cart,product]};
-        },()=>{console.log(this.state);
+        },
+        () => {
+            this.addTotals();
         });
     };
     openModal = id =>{
         const product = this.getItem(id);
         this.setState(()=>{
-            return {modalProduct:product,modalOpen:true} 
-        })
+            return {modalProduct:product,modalOpen:true};
+        });
     };
     closeModal = ()=>{
         this.setState(()=>{
-            return {modalOpen:false}
-        })
+            return {modalOpen:false};
+        });
     };
     increment = id=>{
         console.log("this increment");
@@ -74,6 +76,20 @@ class ProductProvider extends Component {
     };
     clearCart = ()=>{
         console.log("cart was cleared");
+    };
+    addTotals = ()=>{
+        let subTotal = 0;
+        this.state.cart.map(item =>(subTotal += item.total));
+        const tempTax = subTotal * 0.1;
+        const tax =parseFloat(tempTax.toFixed(2));
+        const total =subTotal + tax ;
+        this.setState(()=>{
+            return {
+                cartSubTotal:subTotal,
+                cartTax:tax,
+                cartTotal:total
+            };
+        });
     };
     render() {
         return (
