@@ -3,10 +3,13 @@ import styled from 'styled-components';
 import {ProductConsumer} from '../context';
 import {ButtonContainer} from './Button';
 import {Link} from 'react-router-dom';
+import { ThemeConsumer } from './context/ThemeContexts';
 
 export default class Modal extends Component {
     render() {
         return (
+            <ThemeConsumer>
+        {({ theme }) => (
             <ProductConsumer>
                 {(value)=>{
                     const {modalOpen,closeModal} =value;
@@ -19,11 +22,12 @@ export default class Modal extends Component {
                             <div className="container">
                                 <div className="row">
                                     <div id="modal" className=
-                                    "col-8 mx-auto col-md-6 col-lg-4 text-capitalize text-center p-5">
-                                    <h5>item added to the cart</h5>
+                                    {theme ? "col-8 mx-auto col-md-6 col-lg-4 text-capitalize text-center p-5 bg-dark" : "col-8 mx-auto col-md-6 col-lg-4 text-capitalize text-center p-5"}
+                                    >
+                                    <h5 className={theme && "text-white" }>item added to the cart</h5>
                                     <img src={img} className="img-fluid" alt="product" />
-                                    <h5>{title}</h5>
-                                    <h5 className="text-muted">price : $ {price}</h5>
+                                    <h5 className={theme && "text-light" }>{title}</h5>
+                                    <h5 className={theme ? "text-light" : "text-muted"}>price : $ {price}</h5>
                                     <Link to='/'>
                                     <ButtonContainer onClick={()=>closeModal()}>
                                         continue shopiing
@@ -43,6 +47,8 @@ export default class Modal extends Component {
                 
         }}
             </ProductConsumer>
+             )}
+             </ThemeConsumer>
         );
     }
 }
