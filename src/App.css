@@ -60,10 +60,7 @@
   justify-content: flex-end;
 }
 .mainmenu{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap:40px
+  margin-left: 20px;
 }
 body{
   font-family:"Anton", sans-serif !important;
