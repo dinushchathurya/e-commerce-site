@@ -5,13 +5,20 @@ import App from './App';
 import { BrowserRouter as Router } from "react-router-dom";
 import {ProductProvider} from './context';
 import * as serviceWorker from './serviceWorker';
+import { ThemeProvider } from './components/context/ThemeContexts';
+
+
+
 
 ReactDOM.render(
-    <ProductProvider>
-        <Router>
+   
+ <ProductProvider>
+     <ThemeProvider>
+       <Router>
             <App />
-        </Router>
-    </ProductProvider>,
+           </Router>
+  </ThemeProvider>
+ </ProductProvider> ,
      document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

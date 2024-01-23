@@ -3,13 +3,16 @@ import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 import {ProductConsumer} from '../context';
 import PropTypes from 'prop-types';
+import { ThemeConsumer } from './context/ThemeContexts';
 
 export default class Product extends Component {
     render() {
         const {id, title, img, price, inCart} = this.props.product;
         return (
+            <ThemeConsumer>
+        {({ theme }) => (
             <ProducrWrapper className="col-9 mx-auto col-md-6 col-lg-3 my-3">
-               <div className="card">
+               <div className={theme ? "card bg-dark" : "card"}>
                 <ProductConsumer>
                         {value => (<div className="img-container p-5" onClick={() => value.handleDetail(id)}>
                             <Link to="/details">
@@ -25,17 +28,19 @@ export default class Product extends Component {
                             </button>
                         </div>)}
                 </ProductConsumer>
-                 <div className="card-footer d-flex justify-content-between">
-                     <p className="align-self-center mb-0">
+                 <div className={theme ? "card-footer d-flex justify-content-between bg-dark" : "card-footer d-flex justify-content-between"}>
+                     <p className={theme ? "align-self-center mb-0 text-light" : "align-self-center mb-0"}>
                          {title}
                      </p>
-                     <h5 className="text-blue font-italic mb-0">
+                     <h5 className={theme ? "text-primary font-italic mb-0" : "text-blue font-italic mb-0"}>
                          <span className="mr-1">$</span>
                          {price}
                      </h5>
                  </div>
                </div>
             </ProducrWrapper>
+              )}
+              </ThemeConsumer>
         );
     }
 }
