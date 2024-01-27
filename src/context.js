@@ -17,6 +17,20 @@ class ProductProvider extends Component {
         this.setProducts();
     }
 
+    filterProducts = (value) => {
+        value = value.toLowerCase();
+        let products = [];
+        storeProducts.forEach(item => {
+            if(item.title.toLowerCase().includes(value) || item.info.toLowerCase().includes(value)){
+                const singleItem = { ...item };
+                products = [...products, singleItem];
+            }
+        });
+        this.setState(() => {
+            return { products };
+        }, this.checkCartItems);
+    }
+
     setProducts = () => {
         let products = [];
         storeProducts.forEach(item => {
@@ -175,7 +189,8 @@ class ProductProvider extends Component {
                     increment: this.increment,
                     decrement: this.decrement,
                     removeItem: this.removeItem,
-                    clearCart: this.clearCart
+                    clearCart: this.clearCart,
+                    filterProducts: this.filterProducts
                 }}
             >
                 {this.props.children}

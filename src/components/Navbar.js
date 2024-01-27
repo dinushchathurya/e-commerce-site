@@ -6,7 +6,8 @@ import { ButtonContainer } from './Button';
 import { ThemeContext } from './context/ThemeContexts';
 import { FaRegMoon } from 'react-icons/fa';
 import { GoSun } from 'react-icons/go';
-import { AiOutlineMenu } from 'react-icons/ai';
+import { AiOutlineMenu } from 'react-icons/ai'
+import { ProductConsumer } from '../context';
 import { NavLink } from 'react-router-dom';
 
 class Navbar extends Component {
@@ -58,9 +59,20 @@ class Navbar extends Component {
             </div>
             {menuOpen && (
               <div className=" resmenu w-100 ">
-                <NavLink to="/" className={({isActive})=> isActive ? "text-primary" : "text-white hover"}>
+                <NavLink to="/" className={({ isActive }) => isActive ? "text-primary" : "text-white hover"}>
                   Products
                 </NavLink>
+                <ProductConsumer>
+                  {value => (<li style={{
+                    listStyleType: 'none'
+                  }}>
+                    <input placeholder='Search for products' onChange={(e) => {
+                      value.filterProducts(e.target.value);
+                    }}>
+                    </input>
+                  </li>)
+                  }
+                </ProductConsumer>
                 <Link className="text-white bg-transparent themes" onClick={toggleTheme}>
                   {theme ? <h6>Dark Mode <FaRegMoon /></h6> : <h6>Light Mode <GoSun /></h6>}
                 </Link>
@@ -85,15 +97,25 @@ class Navbar extends Component {
                 </Link>
               </li>
             </ul>
+            <ul className="navbar-nav align-items-center">
+              <ProductConsumer>
+                {value => (<li className="nav-item ml-5">
+                  <input placeholder='Search for products' onChange={(e) => {
+                    value.filterProducts(e.target.value);
+                  }}>
+                  </input>
+                </li>)
+                }
+              </ProductConsumer>
+            </ul>
             <Link to="/cart" className="ml-auto">
-
               <ButtonContainer>
                 <i className="fas fa-cart-plus">my cart</i>
               </ButtonContainer>
             </Link>
-              <div className="text-white bg-transparent themes mainmenu" onClick={toggleTheme}>
-                  {theme ? <FaRegMoon /> : <GoSun />}
-              </div>
+            <div className="text-white bg-transparent themes mainmenu" onClick={toggleTheme}>
+              {theme ? <FaRegMoon /> : <GoSun />}
+            </div>
           </DesktopNavWrapper>
         )}
       </div>
