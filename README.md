@@ -4,6 +4,12 @@
 npm install
 ```
 
+## Use specific node version
+
+```
+nvm use
+```
+
 ## Start the project
 
 ```
